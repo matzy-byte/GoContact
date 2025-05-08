@@ -20,8 +20,8 @@ public class ContactViewModel extends AndroidViewModel {
         allContacts = repository.getAllContacts();
     }
 
-    public void insert(Contact contact) {
-        repository.insert(contact);
+    public void upsert(Contact contact) {
+        repository.upsert(contact);
     }
 
     public LiveData<List<Contact>> getAllContacts() {

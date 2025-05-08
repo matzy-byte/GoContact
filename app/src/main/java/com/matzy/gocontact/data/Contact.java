@@ -3,10 +3,11 @@ package com.matzy.gocontact.data;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity(tableName = "contact_table")
-public class Contact {
+public class Contact implements Serializable {
     @PrimaryKey(autoGenerate = true)
     public int id;
 

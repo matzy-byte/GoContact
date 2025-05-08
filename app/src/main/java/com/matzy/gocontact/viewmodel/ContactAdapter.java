@@ -16,6 +16,15 @@ import java.util.List;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactHolder> {
     private List<Contact> contacts = new ArrayList<>();
+    private OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+        void onItemClick(Contact contact);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
 
     public void setContacts(List<Contact> contacts) {
         this.contacts = contacts;
@@ -33,8 +42,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactH
     @Override
     public void onBindViewHolder(@NonNull ContactHolder holder, int position) {
         Contact contact = contacts.get(position);
-        holder.name.setText(contact.getFullName());
-        holder.latestInteraction.setText(contact.getLatestInteraction());
+        holder.bind(contact);
     }
 
     @Override
@@ -42,12 +50,24 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactH
         return contacts.size();
     }
 
-    static class ContactHolder extends RecyclerView.ViewHolder {
+    class ContactHolder extends RecyclerView.ViewHolder {
         TextView name, latestInteraction;
+
         public ContactHolder(View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.txt_name);
+            name = itemView.findViewById(R.id.txt_full_name);
             latestInteraction = itemView.findViewById(R.id.txt_latest_interaction);
+        }
+
+        public void bind(Contact contact) {
+            name.setText(contact.getFullName());
+            latestInteraction.setText(contact.getLatestInteraction());
+
+            itemView.setOnClickListener(v -> {
+                if (listener != null) {
+                    listener.onItemClick(contact); // pass the bound contact
+                }
+            });
         }
     }
 }

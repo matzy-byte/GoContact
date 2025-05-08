@@ -22,8 +22,8 @@ public class ContactRepository {
         allContacts = contactDAO.getAllContacts();
     }
 
-    public void insert(Contact contact) {
-        Executors.newSingleThreadExecutor().execute(() -> contactDAO.Insert(contact));
+    public void upsert(Contact contact) {
+        Executors.newSingleThreadExecutor().execute(() -> contactDAO.upsert(contact));
     }
 
     public LiveData<List<Contact>> getAllContacts() {
