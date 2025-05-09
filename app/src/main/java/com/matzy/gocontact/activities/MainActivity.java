@@ -7,12 +7,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.matzy.gocontact.R;
 import com.matzy.gocontact.data.Contact;
 import com.matzy.gocontact.viewmodel.ContactAdapter;
 import com.matzy.gocontact.viewmodel.ContactViewModel;
+import com.matzy.gocontact.worker.NotificationWorker;
+
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity implements ContactFormDialogFragment.ContactFormListener, ContactDialogFragment.ContactListener {
     private ContactViewModel contactViewModel;
@@ -40,6 +45,10 @@ public class MainActivity extends AppCompatActivity implements ContactFormDialog
         FloatingActionButton fab = findViewById(R.id.fab_add_contact);
         fab.setOnClickListener(v -> openContactFormDialog());
 
+        OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(NotificationWorker.class)
+                .setInitialDelay(5, TimeUnit.SECONDS) // For testing, change to 24 hours in prod
+                .build();
+        WorkManager.getInstance(this).enqueue(request);
     }
 
     @Override

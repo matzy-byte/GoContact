@@ -8,7 +8,6 @@ import com.matzy.gocontact.data.Contact;
 import com.matzy.gocontact.data.ContactDAO;
 import com.matzy.gocontact.data.ContactDatabase;
 
-import java.lang.reflect.Executable;
 import java.util.List;
 import java.util.concurrent.Executors;
 
@@ -19,7 +18,7 @@ public class ContactRepository {
     public ContactRepository(Application application) {
         ContactDatabase database = ContactDatabase.getInstance(application);
         contactDAO = database.contactDAO();
-        allContacts = contactDAO.getAllContacts();
+        allContacts = contactDAO.getAllContactsLive();
     }
 
     public void upsert(Contact contact) {

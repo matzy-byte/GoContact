@@ -37,6 +37,7 @@ dependencies {
     implementation(libs.recycler.view)
     implementation(libs.lifecycle.livedata)
     implementation(libs.lifecycle.viewmodel)
+    implementation(libs.worker)
 
     implementation(libs.appcompat)
     implementation(libs.material)
