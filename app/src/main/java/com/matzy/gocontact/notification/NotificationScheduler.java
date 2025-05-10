@@ -6,6 +6,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 
 import androidx.annotation.RequiresPermission;
 
@@ -14,7 +15,6 @@ import java.util.concurrent.TimeUnit;
 public class NotificationScheduler {
 
     private static final int REQUEST_CODE = 123;
-    private static final long INTERVAL_MINUTES = 5;
 
     @SuppressLint("ScheduleExactAlarm")
     @RequiresPermission(Manifest.permission.SCHEDULE_EXACT_ALARM)
@@ -25,7 +25,10 @@ public class NotificationScheduler {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 context, REQUEST_CODE, intent, PendingIntent.FLAG_IMMUTABLE);
 
-        long triggerAtMillis = System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(INTERVAL_MINUTES);
+        SharedPreferences prefs = context.getSharedPreferences("app_settings", Context.MODE_PRIVATE);
+        int intervalDays = prefs.getInt("interval", 15);
+
+        long triggerAtMillis = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(intervalDays);
 
         alarmManager.setExactAndAllowWhileIdle(
                 AlarmManager.RTC_WAKEUP,
