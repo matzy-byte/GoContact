@@ -19,6 +19,11 @@ import androidx.fragment.app.DialogFragment;
 import com.matzy.gocontact.R;
 import com.matzy.gocontact.data.Contact;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 
@@ -28,6 +33,7 @@ public class ContactFormDialogFragment extends DialogFragment {
     private TextView firstName, lastName, priority, birthdate;
     private Button save, close;
     private Contact contact;
+    SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
 
     public interface ContactFormListener {
         void onSaveClicked(Contact contact);
@@ -77,18 +83,29 @@ public class ContactFormDialogFragment extends DialogFragment {
             firstName.setText(contact.firstName);
             lastName.setText(contact.lastName);
             priority.setText(String.valueOf(contact.priority));
-            birthdate.setText(contact.birthdate);
+            birthdate.setText(format.format(contact.birthdate));
         }
 
         save.setOnClickListener(v -> {
             Objects.requireNonNull(getDialog()).dismiss();
+
+            Date bday = new Date();
+            Date lday = new Date();
+            try {
+                bday = format.parse(birthdate.getText().toString());
+                lday = new Date();
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+
             if (contact == null) {
-                contact = new Contact(firstName.getText().toString(), lastName.getText().toString(), Integer.parseInt(priority.getText().toString()), birthdate.getText().toString());
+                contact = new Contact(firstName.getText().toString(), lastName.getText().toString(), Integer.parseInt(priority.getText().toString()), bday, lday);
             } else {
                 contact.firstName = firstName.getText().toString();
                 contact.lastName = lastName.getText().toString();
                 contact.priority = Integer.parseInt(priority.getText().toString());
-                contact.birthdate = birthdate.getText().toString();
+                contact.birthdate = bday;
+                contact.latestInteraction = lday;
             }
             listener.onSaveClicked(contact);
         });

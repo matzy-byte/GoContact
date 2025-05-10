@@ -19,6 +19,8 @@ import androidx.fragment.app.DialogFragment;
 import com.matzy.gocontact.R;
 import com.matzy.gocontact.data.Contact;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.Objects;
 
 
@@ -28,6 +30,7 @@ public class ContactDialogFragment extends DialogFragment {
     private ContactListener listener;
     private TextView fullName, latestInteraction, priority, birthdate;
     private Button edit, close;
+    SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
 
 
     public interface ContactListener {
@@ -63,14 +66,14 @@ public class ContactDialogFragment extends DialogFragment {
         contact = (Contact) getArguments().getSerializable(ARG_CONTACT);
 
         fullName = view.findViewById(R.id.txt_full_name);
-        latestInteraction = view.findViewById(R.id.txt_latest_interaction);
-        priority = view.findViewById(R.id.txt_priority);
-        birthdate = view.findViewById(R.id.txt_birthdate);
+        latestInteraction = view.findViewById(R.id.edit_notification_interval);
+        priority = view.findViewById(R.id.edit_weighted_algo);
+        birthdate = view.findViewById(R.id.edit_theme);
 
         fullName.setText(contact.getFullName());
-        latestInteraction.setText(contact.getLatestInteraction());
+        latestInteraction.setText(format.format(contact.latestInteraction));
         priority.setText(String.valueOf(contact.priority));
-        birthdate.setText(contact.birthdate);
+        birthdate.setText(format.format(contact.birthdate));
 
         edit = view.findViewById(R.id.btn_save_contact);
         close = view.findViewById(R.id.btn_close_contact);

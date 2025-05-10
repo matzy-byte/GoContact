@@ -14,13 +14,15 @@ public class Contact implements Serializable {
     public String firstName;
     public String lastName;
     public int priority;
-    public String birthdate;
+    public Date birthdate;
+    public Date latestInteraction;
 
-    public Contact(String firstName, String lastName, int priority, String birthdate) {
+    public Contact(String firstName, String lastName, int priority, Date birthdate, Date latestInteraction) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.priority = priority;
         this.birthdate = birthdate;
+        this.latestInteraction = latestInteraction;
     }
 
     public String getFullName() {
@@ -28,6 +30,6 @@ public class Contact implements Serializable {
     }
 
     public String getLatestInteraction() {
-        return (new Date()).toString();
+        return latestInteraction.toString();
     }
 }

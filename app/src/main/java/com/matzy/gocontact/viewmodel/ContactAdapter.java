@@ -11,12 +11,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.matzy.gocontact.R;
 import com.matzy.gocontact.data.Contact;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactHolder> {
     private List<Contact> contacts = new ArrayList<>();
     private OnItemClickListener listener;
+    SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
 
     public interface OnItemClickListener {
         void onItemClick(Contact contact);
@@ -56,12 +59,12 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactH
         public ContactHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.txt_full_name);
-            latestInteraction = itemView.findViewById(R.id.txt_latest_interaction);
+            latestInteraction = itemView.findViewById(R.id.edit_notification_interval);
         }
 
         public void bind(Contact contact) {
             name.setText(contact.getFullName());
-            latestInteraction.setText(contact.getLatestInteraction());
+            latestInteraction.setText(format.format(contact.latestInteraction));
 
             itemView.setOnClickListener(v -> {
                 if (listener != null) {
