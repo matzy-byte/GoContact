@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="300dp"
     android:layout_margin="5dp"
@@ -20,63 +22,59 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="First And Last Name"
-            android:textSize="30dp" />
+            android:textSize="30sp" />
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1">
 
             <TableRow
                 android:layout_weight="1"
                 android:gravity="center">
                 <TextView
-                    android:text="Latest interaction"
+                    android:text="@string/latest_interaction"
                     android:layout_weight="1"
                     android:textAlignment="center"
-                    android:textSize="18dp"/>
+                    android:textSize="18sp"/>
 
                 <TextView
                     android:id="@+id/edit_notification_interval"
                     android:layout_weight="1"
-                    android:text="10.10.2024"
                     android:textAlignment="center"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
             </TableRow>
 
             <TableRow
                 android:layout_weight="1"
                 android:gravity="center">
                 <TextView
-                    android:text="Priority"
+                    android:text="@string/priority"
                     android:layout_weight="1"
                     android:textAlignment="center"
-                    android:textSize="18dp"/>
+                    android:textSize="18sp"/>
 
                 <TextView
                     android:id="@+id/edit_weighted_algo"
                     android:layout_weight="1"
-                    android:text="10"
                     android:textAlignment="center"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
             </TableRow>
 
             <TableRow
                 android:layout_weight="1"
                 android:gravity="center">
                 <TextView
-                    android:text="Birthdate"
+                    android:text="@string/birthdate"
                     android:layout_weight="1"
                     android:textAlignment="center"
-                    android:textSize="18dp"/>
+                    android:textSize="18sp"/>
 
                 <TextView
                     android:id="@+id/edit_theme"
                     android:layout_weight="1"
-                    android:text="10.10.2024"
                     android:textAlignment="center"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
             </TableRow>
         </TableLayout>
 
@@ -91,7 +89,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="5dp"
                 android:layout_weight="1"
-                android:text="Edit" />
+                android:text="@string/edit"
+                tools:ignore="ButtonStyle" />
 
             <Button
                 android:id="@+id/btn_close_contact"
@@ -99,7 +98,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="5dp"
                 android:layout_weight="1"
-                android:text="Close" />
+                android:text="@string/close"
+                tools:ignore="ButtonStyle" />
         </LinearLayout>
     </LinearLayout>
 

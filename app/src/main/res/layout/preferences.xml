@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="300dp"
     android:layout_margin="5dp"
@@ -20,12 +21,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Preferences"
-            android:textSize="30dp" />
+            android:text="@string/preferences"
+            android:textSize="30sp" />
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1">
 
             <TableRow
@@ -34,16 +35,19 @@
 
                 <TextView
                     android:layout_weight="1"
-                    android:text="Notification Intervall"
+                    android:text="@string/notification_interval"
                     android:textAlignment="center"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/edit_notification_interval"
+                    android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:text="15 Days"
+                    android:autofillHints="number"
+                    android:inputType="number"
+                    android:hint="@string/_1_999"
                     android:textAlignment="center"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
             </TableRow>
 
             <TableRow
@@ -52,16 +56,19 @@
 
                 <TextView
                     android:layout_weight="1"
-                    android:text="Theme"
+                    android:text="@string/theme"
                     android:textAlignment="center"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/edit_theme"
+                    android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:text="Light"
+                    android:autofillHints="theme"
+                    android:inputType="text"
+                    android:hint="@string/light"
                     android:textAlignment="center"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
             </TableRow>
 
             <TableRow
@@ -72,16 +79,19 @@
 
                 <TextView
                     android:layout_weight="1"
-                    android:text="Weighted Algorithm"
+                    android:text="@string/weighted_algorithm"
                     android:textAlignment="center"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/edit_weighted_algo"
+                    android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:text="Priority"
+                    android:autofillHints="text"
+                    android:inputType="text"
+                    android:hint="@string/priority"
                     android:textAlignment="center"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
             </TableRow>
         </TableLayout>
 
@@ -96,7 +106,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="5dp"
                 android:layout_weight="1"
-                android:text="Save" />
+                android:text="@string/save"
+                tools:ignore="ButtonStyle" />
 
             <Button
                 android:id="@+id/btn_close_contact"
@@ -104,7 +115,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="5dp"
                 android:layout_weight="1"
-                android:text="Close" />
+                android:text="@string/close"
+                tools:ignore="ButtonStyle" />
         </LinearLayout>
     </LinearLayout>
 

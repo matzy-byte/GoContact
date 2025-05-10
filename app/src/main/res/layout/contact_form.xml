@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="300dp"
     android:layout_margin="5dp"
@@ -19,12 +20,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Contact Form"
-            android:textSize="30dp" />
+            android:text="@string/contact_form"
+            android:textSize="30sp" />
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1">
 
             <TableRow
@@ -33,51 +34,63 @@
 
                 <EditText
                     android:id="@+id/edit_first_name"
+                    android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:hint="First name"
+                    android:autofillHints="name"
+                    android:hint="@string/first_name"
+                    android:inputType="textPersonName"
                     android:textAlignment="center"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/edit_last_name"
+                    android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:hint="Last name"
+                    android:autofillHints="name"
+                    android:hint="@string/last_name"
+                    android:inputType="textPersonName"
                     android:textAlignment="center"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
             </TableRow>
 
             <TableRow
                 android:layout_weight="1"
                 android:gravity="center">
                 <TextView
-                    android:text="Priority"
+                    android:text="@string/priority"
                     android:layout_weight="1"
                     android:textAlignment="center"
-                    android:textSize="18dp"/>
+                    android:textSize="18sp"/>
 
                 <EditText
                     android:id="@+id/edit_priority"
+                    android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:hint="1-10"
+                    android:autofillHints="number"
+                    android:hint="@string/_1_10"
+                    android:inputType="number"
                     android:textAlignment="center"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
             </TableRow>
 
             <TableRow
                 android:layout_weight="1"
                 android:gravity="center">
                 <TextView
-                    android:text="Birthdate"
+                    android:text="@string/birthdate"
                     android:layout_weight="1"
                     android:textAlignment="center"
-                    android:textSize="18dp"/>
+                    android:textSize="18sp"/>
 
                 <EditText
                     android:id="@+id/edit_birthdate"
+                    android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:hint="XX.XX.XXXX"
+                    android:autofillHints="birthdate"
+                    android:hint="@string/birthdate_example"
+                    android:inputType="text"
                     android:textAlignment="center"
-                    android:textSize="18dp" />
+                    android:textSize="18sp" />
             </TableRow>
         </TableLayout>
 
@@ -92,7 +105,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="5dp"
                 android:layout_weight="1"
-                android:text="Save" />
+                android:text="@string/save"
+                tools:ignore="ButtonStyle" />
 
             <Button
                 android:id="@+id/btn_close_contact"
@@ -100,7 +114,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="5dp"
                 android:layout_weight="1"
-                android:text="Close" />
+                android:text="@string/close"
+                tools:ignore="ButtonStyle" />
         </LinearLayout>
     </LinearLayout>
 

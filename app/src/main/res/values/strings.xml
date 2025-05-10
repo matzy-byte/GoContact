@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">GoContact</string>
+    <string name="latest_interaction">Latest Interaction</string>
+    <string name="priority">Priority</string>
+    <string name="birthdate">Birthdate</string>
+    <string name="edit">Edit</string>
+    <string name="close">Close</string>
+    <string name="contact_form">Contact Form</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="_1_10">1–10</string>
+    <string name="save">Save</string>
+    <string name="birthdate_example">XX.XX.XXXX</string>
+    <string name="delete_entry">Delete Entry</string>
+    <string name="preferences">Preferences</string>
+    <string name="disable">Disable</string>
+    <string name="add_contact">Add Contact</string>
+    <string name="notification_interval">Notification Interval</string>
+    <string name="_1_999">1-999</string>
+    <string name="theme">Theme</string>
+    <string name="light">Light</string>
+    <string name="weighted_algorithm">Weighted Algorithm</string>
 </resources>

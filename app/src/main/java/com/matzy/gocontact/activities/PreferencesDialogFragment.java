@@ -44,6 +44,9 @@ public class PreferencesDialogFragment extends DialogFragment {
         algo.setText(prefs.getString("algo", "priority"));
 
         save.setOnClickListener(v -> {
+            prefs.edit().putInt("interval", Integer.parseInt(interval.getText().toString())).apply();
+            prefs.edit().putString("theme", theme.getText().toString()).apply();
+            prefs.edit().putString("algo", algo.getText().toString()).apply();
             getDialog().dismiss();
         });
         close.setOnClickListener(v -> {

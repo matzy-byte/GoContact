@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:layout_margin="5dp"
@@ -14,7 +15,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
@@ -26,8 +27,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="First And Last Name"
-                android:textSize="30dp" />
+                android:text=""
+                android:textSize="30sp"
+                tools:ignore="NestedWeights" />
 
             <TextView
                 android:id="@+id/edit_notification_interval"
@@ -35,13 +37,18 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:gravity="center"
-                android:text="Latest interaction" />
+                android:text="" />
         </LinearLayout>
 
         <ImageButton
             android:id="@+id/btn_save_contact"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/delete_entry"
+            android:padding="30dp"
+            android:scaleX="1.5"
+            android:scaleY="1.5"
             android:src="@android:drawable/btn_dialog" />
     </LinearLayout>
 
