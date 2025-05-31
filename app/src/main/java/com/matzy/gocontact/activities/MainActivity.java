@@ -35,6 +35,13 @@ public class MainActivity extends AppCompatActivity implements ContactFormDialog
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Intent intent = getIntent();
+
+        if (intent.getAction() != null && !intent.getAction().equals(Intent.ACTION_MAIN)) {
+            finish();
+            return;
+        }
+
         setContentView(R.layout.main_activity);
 
         RecyclerView recyclerView = findViewById(R.id.recycler_contacts);
@@ -70,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements ContactFormDialog
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
             if (!alarmManager.canScheduleExactAlarms()) {
-                Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+                intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
                 startActivity(intent);
             }
         }
