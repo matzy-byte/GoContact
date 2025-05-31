@@ -10,7 +10,9 @@ import android.content.SharedPreferences;
 
 import androidx.annotation.RequiresPermission;
 
-import java.util.concurrent.TimeUnit;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 public class NotificationScheduler {
 
@@ -27,8 +29,16 @@ public class NotificationScheduler {
 
         SharedPreferences prefs = context.getSharedPreferences("app_settings", Context.MODE_PRIVATE);
         int intervalDays = prefs.getInt("interval", 15);
+        LocalTime time = LocalTime.parse(prefs.getString("time", "00:00"), DateTimeFormatter.ofPattern("HH:mm"));
 
-        long triggerAtMillis = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(intervalDays);
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, intervalDays);
+        calendar.set(Calendar.HOUR_OF_DAY, time.getHour());
+        calendar.set(Calendar.MINUTE, time.getMinute());
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        long triggerAtMillis = calendar.getTime().getTime();;
 
         alarmManager.setExactAndAllowWhileIdle(
                 AlarmManager.RTC_WAKEUP,

@@ -15,9 +15,19 @@
     <string name="preferences">Preferences</string>
     <string name="disable">Disable</string>
     <string name="add_contact">Add Contact</string>
-    <string name="notification_interval">Notification Interval</string>
+    <string name="notification_interval">Notification Interval (Days)</string>
     <string name="_1_999">1-999</string>
     <string name="theme">Theme</string>
     <string name="light">Light</string>
     <string name="weighted_algorithm">Weighted Algorithm</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="remove_contact">Remove Contact?</string>
+    <string name="notification_time">Notification Time</string>
+    <string name="xx_xx">XX:XX</string>
+    <string name="notifications">Notifications</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+    <string name="activate">Activate</string>
+    <string name="deactivate">Deactivate</string>
 </resources>

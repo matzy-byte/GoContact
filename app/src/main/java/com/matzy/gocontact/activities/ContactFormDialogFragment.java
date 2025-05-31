@@ -19,7 +19,6 @@ import androidx.fragment.app.DialogFragment;
 import com.matzy.gocontact.R;
 import com.matzy.gocontact.data.Contact;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

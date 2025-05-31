@@ -25,7 +25,7 @@ import com.matzy.gocontact.notification.NotificationScheduler;
 import com.matzy.gocontact.viewmodel.ContactAdapter;
 import com.matzy.gocontact.viewmodel.ContactViewModel;
 
-public class MainActivity extends AppCompatActivity implements ContactFormDialogFragment.ContactFormListener, ContactDialogFragment.ContactListener {
+public class MainActivity extends AppCompatActivity implements ContactFormDialogFragment.ContactFormListener, ContactDialogFragment.ContactListener, ContactDeleteDialogFragment.ContactListener {
     private final String PERIODIC_WORK_NAME = "contact_notify_job";
     private ContactViewModel contactViewModel;
     private ContactAdapter adapter;
@@ -47,7 +47,18 @@ public class MainActivity extends AppCompatActivity implements ContactFormDialog
         contactViewModel = new ViewModelProvider(this).get(ContactViewModel.class);
         contactViewModel.getAllContacts().observe(this, contacts -> {
             adapter.setContacts(contacts);
-            adapter.setOnItemClickListener(this::openContactDialog);
+            ContactAdapter.OnItemClickListener a = new ContactAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(Contact contact) {
+                    openContactDialog(contact);
+                }
+
+                @Override
+                public void onDeleteItemClick(Contact contact) {
+                    openContactDeleteDialog(contact);
+                }
+            };
+            adapter.setOnItemClickListener(a);
         });
 
         FloatingActionButton fab = findViewById(R.id.fab_add_contact);
@@ -67,33 +78,35 @@ public class MainActivity extends AppCompatActivity implements ContactFormDialog
         SharedPreferences prefs = getSharedPreferences("app_settings", Context.MODE_PRIVATE);
         if (!prefs.contains("notify")) {
             prefs.edit().putBoolean("notify", false).apply();
+            prefs.edit().putString("time", "00:00").apply();
             prefs.edit().putInt("interval", 15).apply();
             prefs.edit().putString("theme", "Light").apply();
             prefs.edit().putString("algo", "Priority").apply();
+            openPreferencesDialog();
         }
 
         TextView notificationInfo = findViewById(R.id.txt_notification_status);
         Button notificationStatus = findViewById(R.id.btn_toggle_notifications);
 
         if (prefs.getBoolean("notify", true)) {
-            notificationInfo.setText("Notifications: On");
-            notificationStatus.setText("Deactivate");
+            notificationInfo.setText(String.format("%s: %s", getString(R.string.notifications), getString(R.string.on)));
+            notificationStatus.setText(R.string.deactivate);
         } else {
-            notificationInfo.setText("Notifications: Off");
-            notificationStatus.setText("Activate");
+            notificationInfo.setText(String.format("%s: %s", getString(R.string.notifications), getString(R.string.off)));
+            notificationStatus.setText(R.string.activate);
         }
 
         notificationStatus.setOnClickListener(v -> {
             if (prefs.getBoolean("notify", true)) {
                 NotificationScheduler.cancelNotificationAlarm(this);
                 prefs.edit().putBoolean("notify", false).apply();
-                notificationInfo.setText("Notifications: Off");
-                notificationStatus.setText("Activate");
+                notificationInfo.setText(String.format("%s: %s", getString(R.string.notifications), getString(R.string.off)));
+                notificationStatus.setText(R.string.activate);
             } else {
                 NotificationScheduler.scheduleRepeatingNotification(this);
                 prefs.edit().putBoolean("notify", true).apply();
-                notificationInfo.setText("Notifications: On");
-                notificationStatus.setText("Deactivate");
+                notificationInfo.setText(String.format("%s: %s", getString(R.string.notifications), getString(R.string.on)));
+                notificationStatus.setText(R.string.deactivate);
             }
         });
     }
@@ -106,6 +119,11 @@ public class MainActivity extends AppCompatActivity implements ContactFormDialog
     @Override
     public void onEditClicked(Contact contact) {
         openContactFormDialog(contact);
+    }
+
+    @Override
+    public void onRemoveClicked(Contact contact) {
+        contactViewModel.delete(contact);
     }
 
     private void openContactFormDialog(Contact contact) {
@@ -121,6 +139,11 @@ public class MainActivity extends AppCompatActivity implements ContactFormDialog
     private void openContactDialog(Contact contact) {
         ContactDialogFragment dialog = ContactDialogFragment.newInstance(contact);
         dialog.show(getSupportFragmentManager(), "ContactDialogFragment");
+    }
+
+    private void openContactDeleteDialog(Contact contact) {
+        ContactDeleteDialogFragment dialog = ContactDeleteDialogFragment.newInstance(contact);
+        dialog.show(getSupportFragmentManager(), "ContactDeleteDialogFragment");
     }
 
     private void openPreferencesDialog() {

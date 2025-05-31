@@ -3,6 +3,7 @@ package com.matzy.gocontact.viewmodel;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactH
 
     public interface OnItemClickListener {
         void onItemClick(Contact contact);
+        void onDeleteItemClick(Contact contact);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -55,16 +57,21 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactH
 
     class ContactHolder extends RecyclerView.ViewHolder {
         TextView name, latestInteraction;
+        ImageButton delete;
 
         public ContactHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.txt_full_name);
             latestInteraction = itemView.findViewById(R.id.edit_notification_interval);
+            delete = itemView.findViewById(R.id.btn_save_contact);
         }
 
         public void bind(Contact contact) {
             name.setText(contact.getFullName());
             latestInteraction.setText(format.format(contact.latestInteraction));
+            delete.setOnClickListener(v -> {
+                listener.onDeleteItemClick(contact);
+            });
 
             itemView.setOnClickListener(v -> {
                 if (listener != null) {

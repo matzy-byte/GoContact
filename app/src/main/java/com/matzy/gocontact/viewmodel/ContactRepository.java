@@ -25,6 +25,10 @@ public class ContactRepository {
         Executors.newSingleThreadExecutor().execute(() -> contactDAO.upsert(contact));
     }
 
+    public void delete(Contact contact) {
+        Executors.newSingleThreadExecutor().execute(() -> contactDAO.delete(contact));
+    }
+
     public LiveData<List<Contact>> getAllContacts() {
         return allContacts;
     }
