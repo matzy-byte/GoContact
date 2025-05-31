@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements ContactFormDialog
 
         RecyclerView recyclerView = findViewById(R.id.recycler_contacts);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
 
         adapter = new ContactAdapter();
         recyclerView.setAdapter(adapter);
