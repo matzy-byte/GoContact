@@ -35,7 +35,7 @@ public class NotificationUtils {
             createNotificationChannel(context);
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                    .setSmallIcon(R.drawable.ic_launcher_foreground)
+                    .setSmallIcon(R.drawable.launcher)
                     .setContentTitle("Reminder")
                     .setContentText("Reach out to " + contact.firstName)
                     .setPriority(NotificationCompat.PRIORITY_HIGH);
@@ -48,16 +48,14 @@ public class NotificationUtils {
     }
 
     private static void createNotificationChannel(Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(
-                    CHANNEL_ID,
-                    "Reminder Notifications",
-                    NotificationManager.IMPORTANCE_HIGH
-            );
-            NotificationManager manager = context.getSystemService(NotificationManager.class);
-            if (manager != null) {
-                manager.createNotificationChannel(channel);
-            }
+        NotificationChannel channel = new NotificationChannel(
+                CHANNEL_ID,
+                "Reminder Notifications",
+                NotificationManager.IMPORTANCE_HIGH
+        );
+        NotificationManager manager = context.getSystemService(NotificationManager.class);
+        if (manager != null) {
+            manager.createNotificationChannel(channel);
         }
     }
 }
