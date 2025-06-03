@@ -1,16 +1,19 @@
 package com.matzy.gocontact.activities;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +29,6 @@ import com.matzy.gocontact.viewmodel.ContactAdapter;
 import com.matzy.gocontact.viewmodel.ContactViewModel;
 
 public class MainActivity extends AppCompatActivity implements ContactFormDialogFragment.ContactFormListener, ContactDialogFragment.ContactListener, ContactDeleteDialogFragment.ContactListener {
-    private final String PERIODIC_WORK_NAME = "contact_notify_job";
     private ContactViewModel contactViewModel;
     private ContactAdapter adapter;
 
@@ -40,6 +42,12 @@ public class MainActivity extends AppCompatActivity implements ContactFormDialog
         if (intent.getAction() != null && !intent.getAction().equals(Intent.ACTION_MAIN)) {
             finish();
             return;
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_DENIED) {
+                requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 100);
+            }
         }
 
         setContentView(R.layout.main_activity);
@@ -85,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements ContactFormDialog
         if (!prefs.contains("notify")) {
             prefs.edit().putBoolean("notify", false).apply();
             prefs.edit().putString("time", "00:00").apply();
-            prefs.edit().putInt("interval", 15).apply();
+            prefs.edit().putInt("interval", 7).apply();
             prefs.edit().putString("theme", "Light").apply();
             prefs.edit().putString("algo", "Priority").apply();
             openPreferencesDialog();
@@ -115,6 +123,16 @@ public class MainActivity extends AppCompatActivity implements ContactFormDialog
                 notificationStatus.setText(R.string.deactivate);
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                Toast.makeText(this, R.string.required_info, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     @Override
